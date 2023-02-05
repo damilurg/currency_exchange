@@ -50,9 +50,60 @@ const valueIncreased = (value1, value2) => (Math.sign(value1 - value2) === 1)
 const difference = (value1, value2) => (value1 - value2).toFixed(CURRENCY_DIFFERENCE_LIMIT)
 </script>
 
-<style lang="scss">
-thead {
-  text-align: left;
+<style lang="scss" scoped>
+section {
+  overflow: auto;
+  max-height: calc(100vh - 120px);
+  position: relative;
+}
+input {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #0000001f;
+
+  thead {
+    text-align: left;
+
+    th {
+      position: sticky;
+      z-index: 1;
+      top: 23px;
+      background: #c1f4cd;
+      padding: 7px 16px;
+    }
+  }
+
+  tbody {
+    tr {
+      border: 0;
+      td {
+        margin: auto;
+        border: none;
+        border: 0;
+        padding: 7px 16px;
+      }
+      &:hover {
+        td {
+          position: relative;
+          &::before {
+            background: rgba(0,0,0,.03);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: '';
+          }
+        }
+      }
+    }
+  }
 }
 .icon {
   max-width: 24px;

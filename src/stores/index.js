@@ -1,33 +1,34 @@
 import { useURL } from '@/common/modules/useURL'
 import {
+  CURRENCY_CONVERTER_LIMIT,
   DATETIME_FORMAT,
-  DEFAULT_CONVERTER_AMOUNT, DEFAULT_CONVERTER_FROM_CURRENCY, DEFAULT_CONVERTER_TO_CURRENCY,
-  DIVISION,
+  DEFAULT_CONVERTER_AMOUNT,
+  DEFAULT_CONVERTER_FROM_CURRENCY,
+  DEFAULT_CONVERTER_TO_CURRENCY,
   JSON_URL,
-  MULTIPLICATION
 } from '@/config'
 import axios from 'axios'
 import { defineStore } from 'pinia'
 import moment from 'moment'
 import { computed, ref } from 'vue'
-import { mathFunctions } from '@/common/modules/useMathFunctions'
 
 
 export const useCurrenciesStore = defineStore('currencies', () => {
   // ------ Queries params ------ //
   const { getQueryParams, setQueryParams } = useURL()
   const defaultAmount = isNaN(Number(getQueryParams().amount)) ? DEFAULT_CONVERTER_AMOUNT : getQueryParams().amount
+  const isNumeric = (value) => !isNaN(value)
+  const checkCharCode = (value) => value?.length === 3 ? isNumeric(value) ? '' : value : ''
 
   // ----- Reactive variables ----- //
   const currencies = ref([])
   const date = ref()
-  const fromCurrency = ref(DEFAULT_CONVERTER_FROM_CURRENCY)
-  const toCurrency = ref(DEFAULT_CONVERTER_TO_CURRENCY)
+  const fromCurrency = ref(checkCharCode(getQueryParams().from) || DEFAULT_CONVERTER_FROM_CURRENCY)
+  const toCurrency = ref(checkCharCode(getQueryParams().to) || DEFAULT_CONVERTER_TO_CURRENCY)
   const fromAmount = ref(defaultAmount || DEFAULT_CONVERTER_AMOUNT)
   const toAmount = ref(0)
   const errorMessage = ref('')
   const searchTerm = ref('')
-  const isSwapCurrencies = ref(false)
 
   async function getCurrencies() {
     try {
@@ -41,31 +42,30 @@ export const useCurrenciesStore = defineStore('currencies', () => {
     }
   }
 
-  function getCurrencyValue(valute, nominal = false) {
-    const result = currencies.value.find(currency => currency.CharCode === valute)
+  function getCurrencyValue(value, nominal = false) {
+    const result = currencies.value.find(currency => currency.CharCode === value)
     return nominal ? result?.Nominal : result?.Value
   }
 
-  function updateCurrencies(updateNominal = false) {
-    const params = {
+  const getRate = (from, to) => {
+    return (getCurrencyValue(from) / getCurrencyValue(from, true))
+      / (getCurrencyValue(to) / getCurrencyValue(to, true))
+  }
+
+  function updateCurrencies() {
+    setQueryParams({
       from: fromCurrency.value,
       to: toCurrency.value,
       amount: fromAmount.value,
-      swap: +updateNominal,
-    }
-    const rate = getCurrencyValue(fromCurrency.value) / getCurrencyValue(toCurrency.value)
+    })
 
-    const getAmount = fromAmount.value * rate
-    const getNominal = getCurrencyValue(updateNominal ? toCurrency.value : fromCurrency.value, true)
-
-    setQueryParams(params)
-
-    return toAmount.value = mathFunctions[updateNominal ? MULTIPLICATION : DIVISION](getAmount, getNominal)
+    if (fromCurrency.value === toCurrency.value) return toAmount.value = fromAmount.value
+    return toAmount.value = (fromAmount.value * getRate(fromCurrency.value, toCurrency.value)).toFixed(CURRENCY_CONVERTER_LIMIT)
   }
 
   function swapCurrencies() {
     [fromCurrency.value, toCurrency.value] = [toCurrency.value, fromCurrency.value]
-    updateCurrencies(isSwapCurrencies.value = !isSwapCurrencies.value)
+    updateCurrencies()
   }
 
 

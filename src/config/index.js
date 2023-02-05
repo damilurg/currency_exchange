@@ -5,5 +5,3 @@ export const DEFAULT_CONVERTER_AMOUNT = 1
 export const DEFAULT_CONVERTER_FROM_CURRENCY = 'USD'
 export const DEFAULT_CONVERTER_TO_CURRENCY = 'EUR'
 export const CURRENCY_DIFFERENCE_LIMIT = 3
-export const MULTIPLICATION = '*'
-export const DIVISION = '/'

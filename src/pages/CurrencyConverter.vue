@@ -42,11 +42,6 @@
         <SwapIcon/>
       </button>
       <div>
-        <input
-          v-model="storeCurrencies.toAmount"
-          type="number"
-          readonly
-        />
         <select
           v-model="storeCurrencies.toCurrency"
           @change="storeCurrencies.updateCurrencies()"
@@ -59,6 +54,11 @@
             {{ currency.Name }}
           </option>
         </select>
+        <input
+          v-model="storeCurrencies.toAmount"
+          type="number"
+          readonly
+        />
       </div>
     </section>
   </section>
@@ -71,9 +71,17 @@ import { useCurrenciesStore } from '@/stores'
 const storeCurrencies = useCurrenciesStore()
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 select,
 input {
   width: 100%;
+  appearance: none;
+  background: #fff;
+  border: 2px solid #cae0e7;
+  border-radius: 2px;
+  color: #08537e;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 10px 15px;
 }
 </style>
