@@ -77,14 +77,14 @@ export const useCurrenciesStore = defineStore('currencies', () => {
   })
 
   return {
-    currencies,
-    fromAmount,
-    errorMessage,
-    toAmount,
-    fromCurrency,
-    toCurrency,
-    searchTerm,
     date,
+    toAmount,
+    fromAmount,
+    toCurrency,
+    currencies,
+    searchTerm,
+    errorMessage,
+    fromCurrency,
     getCurrencies,
     updateCurrencies,
     swapCurrencies,

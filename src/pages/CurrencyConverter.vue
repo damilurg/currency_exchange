@@ -1,66 +1,68 @@
 <template>
+  <h1>Currency Converter</h1>
   <section v-if="storeCurrencies.errorMessage">
     {{ storeCurrencies.errorMessage }}
-    please reload
+    <button @click="reloadPage">please reload page</button>
   </section>
-  <section v-else>
-    <h1>Currency Converter</h1>
-    <div>
+  <div class="flex column fit-width mb-xl">
         <span>
         {{ storeCurrencies.fromAmount }} {{ storeCurrencies.fromCurrency }} equals
       </span>
-      <br>
-      <span>
-        {{ storeCurrencies.toAmount }} {{ storeCurrencies.toCurrency }}
-      </span>
-      <br>
-      <span>
-        {{ storeCurrencies.date }}
-      </span>
+    <h2 class="mb-md mt-md">
+      {{ storeCurrencies.toAmount }} {{ storeCurrencies.toCurrency }}
+    </h2>
+    <small>
+      {{ storeCurrencies.date }}
+    </small>
+  </div>
+  <section class="flex full-width">
+    <div class="flex mr-md">
+      <select
+        v-model="storeCurrencies.fromCurrency"
+        class="mb-md"
+        @change="storeCurrencies.updateCurrencies()"
+      >
+        <option
+          v-for="currency in storeCurrencies.currencies"
+          :key="currency"
+          :value="currency.CharCode"
+        >
+          {{ currency.Name }}
+        </option>
+      </select>
+      <input
+        v-model="storeCurrencies.fromAmount"
+        type="number"
+        @input="storeCurrencies.updateCurrencies()"
+      />
     </div>
-    <section class="">
-      <div>
-        <select
-          v-model="storeCurrencies.fromCurrency"
-          @change="storeCurrencies.updateCurrencies()"
+    <button
+      class="mr-md background-transparent button"
+      title="Swap Currencies"
+      @click="storeCurrencies.swapCurrencies"
+    >
+      <SwapIcon/>
+    </button>
+    <div class="flex">
+      <select
+        v-model="storeCurrencies.toCurrency"
+        class="mb-md"
+        @change="storeCurrencies.updateCurrencies()"
+      >
+        <option
+          v-for="currency in storeCurrencies.currencies"
+          :key="currency"
+          :value="currency.CharCode"
         >
-          <option
-            v-for="currency in storeCurrencies.currencies"
-            :key="currency"
-            :value="currency.CharCode"
-          >
-            {{ currency.Name }}
-          </option>
-        </select>
-        <input
-          v-model="storeCurrencies.fromAmount"
-          type="number"
-          @input="storeCurrencies.updateCurrencies()"
-        />
-      </div>
-      <button @click="storeCurrencies.swapCurrencies">
-        <SwapIcon/>
-      </button>
-      <div>
-        <select
-          v-model="storeCurrencies.toCurrency"
-          @change="storeCurrencies.updateCurrencies()"
-        >
-          <option
-            v-for="currency in storeCurrencies.currencies"
-            :key="currency"
-            :value="currency.CharCode"
-          >
-            {{ currency.Name }}
-          </option>
-        </select>
-        <input
-          v-model="storeCurrencies.toAmount"
-          type="number"
-          readonly
-        />
-      </div>
-    </section>
+          {{ currency.Name }}
+        </option>
+      </select>
+      <input
+        v-model="storeCurrencies.toAmount"
+        type="number"
+        readonly
+      />
+    </div>
   </section>
 </template>
 
@@ -68,20 +70,7 @@
 import SwapIcon from '@/components/icons/SwapIcon.vue'
 import { useCurrenciesStore } from '@/stores'
 
+const reloadPage = () => (window.location.reload())
+
 const storeCurrencies = useCurrenciesStore()
 </script>
-
-<style lang="scss" scoped>
-select,
-input {
-  width: 100%;
-  appearance: none;
-  background: #fff;
-  border: 2px solid #cae0e7;
-  border-radius: 2px;
-  color: #08537e;
-  font-size: 14px;
-  line-height: 16px;
-  padding: 10px 15px;
-}
-</style>

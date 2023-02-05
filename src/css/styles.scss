@@ -1,0 +1,182 @@
+select,
+input {
+  width: 100%;
+  appearance: none;
+  background: #fff;
+  border: 2px solid #cae0e7;
+  border-radius: 2px;
+  color: #08537e;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 10px 15px;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+
+.section {
+  overflow: auto;
+  max-height: calc(100vh - 200px);
+  position: relative;
+  border: 1px solid #0000001f;
+
+  &-sticky {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+  }
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.fit-width {
+  width: fit-content;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.pa-md {
+  padding: 10px;
+}
+
+.mr-md {
+  margin-right: 10px;
+}
+
+.mb {
+  &-md {
+    margin-bottom: 10px;
+  }
+
+  &-xl {
+    margin-bottom: 20px;
+  }
+}
+
+.mt-md {
+  margin-top: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+
+  &-thumb {
+    background-color: #b3b3b3;
+    border-radius: 8px;
+  }
+
+  &-corner {
+    background: transparent;
+  }
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+
+  thead {
+    text-align: left;
+
+    th {
+      position: sticky;
+      z-index: 1;
+      top: 3px;
+      background: #3e839e;
+      padding: 7px 16px;
+      color: #fff;
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        padding: 7px 16px;
+      }
+
+      &:hover {
+        td {
+          position: relative;
+
+          &::before {
+            background: rgba(0, 0, 0, .03);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: '';
+          }
+        }
+      }
+    }
+  }
+}
+
+.icon {
+  max-width: 24px;
+  max-height: 24px;
+  vertical-align: middle;
+
+  svg {
+    max-width: inherit;
+    max-height: inherit;
+
+    path {
+      fill: currentColor;
+    }
+  }
+}
+
+.text {
+  color: #fff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &-red {
+    color: red;
+  }
+
+  &-green {
+    color: green;
+  }
+}
+
+.background {
+  &-blue {
+    background: #17313b;
+  }
+
+  &-transparent {
+    background: transparent;
+  }
+}
+
+.button {
+  border: 0;
+  appearance: none;
+  cursor: pointer;
+}
