@@ -25,7 +25,8 @@ input {
   overflow: auto;
   max-height: calc(100vh - 200px);
   position: relative;
-  border: 1px solid #0000001f;
+  border: 2px solid #cae0e7;
+  border-top: 0;
 
   &-sticky {
     position: sticky;
