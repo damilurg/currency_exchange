@@ -24,5 +24,5 @@ storeCurrencies.getCurrencies()
 </script>
 
 <style lang="scss">
-@import './css/styles.scss';
+@import '@/assets/scss/styles.scss';
 </style>

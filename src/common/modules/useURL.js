@@ -20,7 +20,7 @@ export const useURL = () => {
       }
     })
 
-    window.history.pushState(null, '', url.pathname + url.search)
+    window.history.pushState({}, '', url.pathname + url.search)
   }
 
   return {
