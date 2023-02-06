@@ -1,5 +1,7 @@
 # Currency Converter
-Application can list the currency list and convert currencies. Used the open JSON `https://www.cbr-xml-daily.ru/daily_json.js`
+Application can list the currency list and convert currencies.
+
+Used the open JSON `https://www.cbr-xml-daily.ru/daily_json.js`
 
 ## Project setup
 ```
@@ -20,6 +22,3 @@ yarn build
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
